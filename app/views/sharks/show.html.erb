@@ -1,0 +1,7 @@
+<h1><%= @shark.common_name %><h1>
+<h3><%= @shark.latin_name %></h3>
+<h3>Typical Habitat: <%= @shark.habitat_range %></h3>
+<h3>Documented Attacks: <%= @shark.attacks_on_humans %></h3>
+
+<p><%= link_to "Edit this Shark", "sharks/#{@shark.id}/edit" %></p>
+<p><%= link_to "Delete this Shark", "/sharks/#{@shark.id}", method: :delete %></p>

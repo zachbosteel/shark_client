@@ -1,0 +1,21 @@
+<%= form_tag "/sharks", method: :post do %>
+<table> 
+  <tr>
+    <td><%= label_tag :common_name %></td>
+    <td><%= text_field_tag :common_name %></td>
+  </tr>
+  <tr>
+    <td><%= label_tag :latin_name %></td>
+    <td><%= text_field_tag :latin_name %></td>
+  </tr>
+  <tr>
+    <td><%= label_tag :habitat_range %></td>
+    <td><%= text_field_tag :habitat_range %></td>
+  </tr>
+  <tr>
+    <td><%= label_tag :attacks_on_humans %></td>
+    <td><%= text_field_tag :attacks_on_humans %></td>
+  </tr> 
+</table>
+<%= submit_tag %>
+<% end %>
