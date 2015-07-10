@@ -12,25 +12,25 @@ class SharksController < ApplicationController
   end
 
   def create
-   @shark = Unirest.post("http://localhost:3000/v1/sharks.json",
-              headers:{ "Accept" => "application/json" }, 
+   @shark = Unirest.post("#{ENV['API_BASE_URL']}/sharks.json",
+              headers:{ "Accept" => "#{ENV['JSON']}", "Authorization" => "#{ENV['AUTHORIZATION']}", "X-User-Email" => "#{ENV['X_USER_EMAIL']}"}, 
               parameters:{common_name: params[:common_name], latin_name: params[:latin_name], habitat_range: params[:habitat_range], attacks_on_humans: params[:attacks_on_humans]}).body
    p @shark
-    redirect_to "/sharks/#{@shark["id"]}"
+    redirect_to "#{ENV['API_BASE_URL']}/sharks/#{@shark["id"]}"
   end
 
   def edit
-    @shark = Unirest.get("http://localhost:3000/v1/sharks/#{params[:id]}.json").body
+    @shark = Unirest.get("#{ENV['API_BASE_URL']}/sharks/#{params[:id]}.json").body
   end
 
   def update
-    @shark = Unirest.patch("http://localhost:3000/v1/sharks/#{params[:id]}.json", headers:{ "Accept" => "application/json" }, parameters:{common_name: params[:common_name], latin_name: params[:latin_name], habitat_range: params[:habitat_range], attacks_on_humans: params[:attacks_on_humans]}).body
-    redirect_to "/sharks/#{params[:id]}"
+    @shark = Unirest.patch("#{ENV['API_BASE_URL']}/sharks/#{params[:id]}.json", headers:{ "Accept" => "#{ENV['JSON']}", "Authorization" => "#{ENV['AUTHORIZATION']}", "X-User-Email" => "#{ENV['X_USER_EMAIL']}"}, parameters:{common_name: params[:common_name], latin_name: params[:latin_name], habitat_range: params[:habitat_range], attacks_on_humans: params[:attacks_on_humans]}).body
+    redirect_to "#{ENV['API_BASE_URL']}/sharks/#{params[:id]}"
   end
 
   def destroy
     shark = Shark.find(params[:id])
     shark.destroy
-    redirect_to "/"
+    redirect_to "#{ENV['API_BASE_URL']}/"
   end
 end

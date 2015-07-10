@@ -9,12 +9,12 @@ attr_accessor :common_name, :latin_name, :habitat_range, :attacks_on_humans, :id
   end
 
   def self.find(id)
-    shark_hash = Unirest.get("http://localhost:3000/v1/sharks/#{id}.json").body
+    shark_hash = Unirest.get("#{ENV['API_BASE_URL']}/sharks/#{id}.json", headers:{ "Accept" => "#{ENV['JSON']}", "Authorization" => "#{ENV['AUTHORIZATION']}", "X-User-Email" => "#{ENV['X_USER_EMAIL']}"}).body
     Shark.new(shark_hash)
   end
 
   def self.all
-    sharks_hashes = Unirest.get("http://localhost:3000/v1/sharks.json").body
+    sharks_hashes = Unirest.get("#{ENV['API_BASE_URL']}/sharks.json", headers:{ "Accept" => "#{ENV['JSON']}", "Authorization" => "#{ENV['AUTHORIZATION']}", "X-User-Email" => "#{ENV['X_USER_EMAIL']}"}).body
     sharks = []
     sharks_hashes.each do |shark|
       sharks << Shark.new(shark)
@@ -23,7 +23,7 @@ attr_accessor :common_name, :latin_name, :habitat_range, :attacks_on_humans, :id
   end
 
   def destroy
-    Unirest.delete("http://localhost:3000/v1/sharks/#{@id}.json", headers:{ "Accept" => "application/json" })
+    Unirest.delete("#{ENV['API_BASE_URL']}/sharks/#{@id}.json", headers:{ "Accept" => "#{ENV['JSON']}", "Authorization" => "#{ENV['AUTHORIZATION']}", "X-User-Email" => "#{ENV['X_USER_EMAIL']}"})
   end
 
 end
